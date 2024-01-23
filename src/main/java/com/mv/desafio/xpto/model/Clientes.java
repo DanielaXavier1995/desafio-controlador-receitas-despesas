@@ -22,11 +22,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_clientes")
 public class Clientes {
@@ -73,4 +70,101 @@ public class Clientes {
 	@ManyToOne //Cada cliente está ligada a um único endereço
 	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
 	private Endereco endereco;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getDataDeCriacao() {
+		return dataDeCriacao;
+	}
+
+	public void setDataDeCriacao(Date dataDeCriacao) {
+		this.dataDeCriacao = dataDeCriacao;
+	}
+
+	public TipoDeMovimentacao getTipoDeMovimentacao() {
+		return tipoDeMovimentacao;
+	}
+
+	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
+		this.tipoDeMovimentacao = tipoDeMovimentacao;
+	}
+
+	public Double getValorDaMovimentacao() {
+		return valorDaMovimentacao;
+	}
+
+	public void setValorDaMovimentacao(Double valorDaMovimentacao) {
+		this.valorDaMovimentacao = valorDaMovimentacao;
+	}
+
+	public List<Contas> getListaDeContas() {
+		return listaDeContas;
+	}
+
+	public void setListaDeContas(List<Contas> listaDeContas) {
+		this.listaDeContas = listaDeContas;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	
 }
