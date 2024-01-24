@@ -26,8 +26,7 @@ public class Movimentacoes {
 	@NotNull()
 	private TipoDeMovimentacao tipoDeMovimentacao;
 	
-	@NotNull()
-	private Double valorPagoMovimentacao;
+	private Double valorTotalMovimentacao;
 	
 	private Integer quantidadeDeMovimentacoes;
 	
@@ -54,12 +53,12 @@ public class Movimentacoes {
 		this.tipoDeMovimentacao = tipoDeMovimentacao;
 	}
 
-	public Double getValorPagoMovimentacao() {
-		return valorPagoMovimentacao;
+	public Double getValorTotalMovimentacao() {
+		return valorTotalMovimentacao;
 	}
 
-	public void setValorPagoMovimentacao(Double valorPagoMovimentacao) {
-		this.valorPagoMovimentacao = valorPagoMovimentacao;
+	public void setValorTotalMovimentacao(Double valorTotalMovimentacao) {
+		this.valorTotalMovimentacao = valorTotalMovimentacao;
 	}
 
 	public Integer getQuantidadeDeMovimentacoes() {

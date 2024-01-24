@@ -1,6 +1,9 @@
 package com.mv.desafio.xpto.model;
 
+import java.util.Date;
 import java.util.List;
+
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -37,6 +40,9 @@ public class Contas {
 	private String nomeDaInstituicao;
 	
 	private Double saldo;
+	
+	@UpdateTimestamp
+	private Date dataTransacao;
 	
 	private boolean ativo;
 
@@ -104,6 +110,14 @@ public class Contas {
 		this.listaDeMovimentacoes = listaDeMovimentacoes;
 	}
 	
+	public Date getDataTransacao() {
+		return dataTransacao;
+	}
+
+	public void setDataTransacao(Date dataTransacao) {
+		this.dataTransacao = dataTransacao;
+	}
+
 	public void setAtivo(boolean ativo) {
 		this.ativo = true;
 	}
