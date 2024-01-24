@@ -14,11 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "tb_movimentacoes")
 public class Movimentacoes {
@@ -41,4 +37,52 @@ public class Movimentacoes {
 	@ManyToOne 
 	@JsonIgnoreProperties("conta") //evita que os dados fiquem em loop;
 	private Contas conta;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public TipoDeMovimentacao getTipoDeMovimentacao() {
+		return tipoDeMovimentacao;
+	}
+
+	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
+		this.tipoDeMovimentacao = tipoDeMovimentacao;
+	}
+
+	public Double getValorPagoMovimentacao() {
+		return valorPagoMovimentacao;
+	}
+
+	public void setValorPagoMovimentacao(Double valorPagoMovimentacao) {
+		this.valorPagoMovimentacao = valorPagoMovimentacao;
+	}
+
+	public Integer getQuantidadeDeMovimentacoes() {
+		return quantidadeDeMovimentacoes;
+	}
+
+	public void setQuantidadeDeMovimentacoes(Integer quantidadeDeMovimentacoes) {
+		this.quantidadeDeMovimentacoes = quantidadeDeMovimentacoes;
+	}
+
+	public Date getDataMovimentacoes() {
+		return dataMovimentacoes;
+	}
+
+	public void setDataMovimentacoes(Date dataMovimentacoes) {
+		this.dataMovimentacoes = dataMovimentacoes;
+	}
+
+	public Contas getConta() {
+		return conta;
+	}
+
+	public void setConta(Contas conta) {
+		this.conta = conta;
+	}
 }

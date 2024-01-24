@@ -15,11 +15,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_contas")
 public class Contas {
@@ -48,5 +45,63 @@ public class Contas {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "conta", cascade = CascadeType.REMOVE) 
 	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
 	private List<Movimentacoes> listaDeMovimentacoes;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNumeroDaAgencia() {
+		return numeroDaAgencia;
+	}
+
+	public void setNumeroDaAgencia(String numeroDaAgencia) {
+		this.numeroDaAgencia = numeroDaAgencia;
+	}
+
+	public String getNumeroDaContaCorrente() {
+		return numeroDaContaCorrente;
+	}
+
+	public void setNumeroDaContaCorrente(String numeroDaContaCorrente) {
+		this.numeroDaContaCorrente = numeroDaContaCorrente;
+	}
+
+	public String getNomeDaInstituicao() {
+		return nomeDaInstituicao;
+	}
+
+	public void setNomeDaInstituicao(String nomeDaInstituicao) {
+		this.nomeDaInstituicao = nomeDaInstituicao;
+	}
+
+	public Double getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(Double saldo) {
+		this.saldo = saldo;
+	}
+
+	public Clientes getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Clientes cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Movimentacoes> getListaDeMovimentacoes() {
+		return listaDeMovimentacoes;
+	}
+
+	public void setListaDeMovimentacoes(List<Movimentacoes> listaDeMovimentacoes) {
+		this.listaDeMovimentacoes = listaDeMovimentacoes;
+	}
+	
+	
 
 }

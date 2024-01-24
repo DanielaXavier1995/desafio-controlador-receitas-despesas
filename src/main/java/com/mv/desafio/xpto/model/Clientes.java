@@ -22,11 +22,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
+
 @Entity
 @Table(name = "tb_clientes")
 public class Clientes {
@@ -41,16 +38,14 @@ public class Clientes {
 	@NotNull(message = "Informe o tipo de pessoa.")
 	private TipoPessoa tipoPessoa;
 	
-	@NotBlank(message = "O CPF é obrigatório.")
-	@Size(max = 14, min = 14, message = "O CPF precisa conter 14 caracteres.")
+	@Size(max = 20)
 	private String cpf;
 	
-	@NotBlank(message = "O CNPJ é obrigatório.")
-	@Size(max = 18, min = 18, message = "O CPF precisa conter 18 caracteres.")
+	@Size(max = 25)
 	private String cnpj;
 	
 	@NotBlank(message = "O telefone é obrigatório.")
-	@Size(max = 15, min = 15, message = "O CPF precisa conter 15 caracteres.")
+	@Size(max = 25)
 	private String telefone;
 	
 	@NotBlank(message = "O email é obrigatório.")
@@ -63,7 +58,7 @@ public class Clientes {
 	@NotNull()
 	private TipoDeMovimentacao tipoDeMovimentacao;
 	
-	@NotNull()
+	@NotNull(message = "Para criar uma conta é obrigatório realizar uma movimentação")
 	private Double valorDaMovimentacao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
@@ -73,4 +68,65 @@ public class Clientes {
 	@ManyToOne //Cada cliente está ligada a um único endereço
 	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
 	private Endereco endereco;
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Date getDataDeCriacao() {
+		return dataDeCriacao;
+	}
+
+	public TipoDeMovimentacao getTipoDeMovimentacao() {
+		return tipoDeMovimentacao;
+	}
+
+	public Double getValorDaMovimentacao() {
+		return valorDaMovimentacao;
+	}
+
+	public List<Contas> getListaDeContas() {
+		return listaDeContas;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+	
 }
