@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -17,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
@@ -45,6 +47,9 @@ public class Contas {
 	private Date dataTransacao;
 	
 	private boolean ativo;
+	
+	@NotNull()
+	private TipoDeMovimentacao tipoDeMovimentacao;
 
 	@ManyToOne //Cada conta está ligada a um único cliete
 	@JsonIgnoreProperties("conta") //evita que os dados fiquem em loop;
@@ -121,7 +126,16 @@ public class Contas {
 	public void setAtivo(boolean ativo) {
 		this.ativo = true;
 	}
+
 	
+	public TipoDeMovimentacao getTipoDeMovimentacao() {
+		return tipoDeMovimentacao;
+	}
+
+	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
+		this.tipoDeMovimentacao = tipoDeMovimentacao;
+	}
+
 	public void excluir() {
 		this.ativo = false;
 	}
