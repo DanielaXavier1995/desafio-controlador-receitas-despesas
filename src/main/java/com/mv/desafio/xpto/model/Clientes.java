@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
 import jakarta.persistence.CascadeType;
@@ -22,7 +21,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "tb_clientes")
@@ -54,12 +52,6 @@ public class Clientes {
 	
 	@UpdateTimestamp //Gerar data automática;
 	private Date dataDeCriacao;
-	
-	@NotNull()
-	private TipoDeMovimentacao tipoDeMovimentacao;
-	
-	@NotNull(message = "Para criar uma conta é obrigatório realizar uma movimentação")
-	private Double valorDaMovimentacao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
 	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
@@ -111,14 +103,6 @@ public class Clientes {
 
 	public Date getDataDeCriacao() {
 		return dataDeCriacao;
-	}
-
-	public TipoDeMovimentacao getTipoDeMovimentacao() {
-		return tipoDeMovimentacao;
-	}
-
-	public Double getValorDaMovimentacao() {
-		return valorDaMovimentacao;
 	}
 
 	public List<Contas> getListaDeContas() {

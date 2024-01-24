@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mv.desafio.xpto.model.Clientes;
 import com.mv.desafio.xpto.model.Endereco;
-import com.mv.desafio.xpto.repository.ClientesRepository;
 import com.mv.desafio.xpto.repository.EnderecoRepository;
 
 import jakarta.validation.Valid;
@@ -30,9 +28,6 @@ public class EnderecoController {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-	@Autowired
-	private ClientesRepository clienteRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Endereco>> getAll() {
@@ -52,9 +47,9 @@ public class EnderecoController {
 				.body(enderecoRepository.save(endereco));
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<Endereco> update(@PathVariable Long id, @Valid @RequestBody Endereco endereco) {
-		return enderecoRepository.findById(id)		
+	@PutMapping
+	public ResponseEntity<Endereco> update(@Valid @RequestBody Endereco endereco) {
+		return enderecoRepository.findById(endereco.getId())		
 				.map(resp -> ResponseEntity.status(HttpStatus.OK)
 					.body(enderecoRepository.save(endereco)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
