@@ -26,11 +26,11 @@ public class Contas {
 	private Long id;
 	
 	@NotBlank(message = "O numero da agencia é obrigatório.")
-	@Size(max = 5, min = 4, message = "O número da agencia deve conter entre 5 e 4 caracteres.")
+	@Size(max = 5, message = "O número da agencia deve conter entre 5 e 4 caracteres.")
 	private String numeroDaAgencia;
-	
+
 	@NotBlank(message = "O numero da conta corrente é obrigatório.")
-	@Size(max = 9, min = 7, message = "O número da conta deve conter entre 7 e 9 caracteres.")
+	@Size(max = 9, message = "O número da conta deve conter entre 7 e 9 caracteres.")
 	private String numeroDaContaCorrente;
 	
 	@NotBlank(message = "O nome da instituição é obrigatório.")
@@ -38,6 +38,8 @@ public class Contas {
 	
 	private Double saldo;
 	
+	private boolean ativo;
+
 	@ManyToOne //Cada conta está ligada a um único cliete
 	@JsonIgnoreProperties("conta") //evita que os dados fiquem em loop;
 	private Clientes cliente;
@@ -102,6 +104,11 @@ public class Contas {
 		this.listaDeMovimentacoes = listaDeMovimentacoes;
 	}
 	
+	public void setAtivo(boolean ativo) {
+		this.ativo = true;
+	}
 	
-
+	public void excluir() {
+		this.ativo = false;
+	}
 }
