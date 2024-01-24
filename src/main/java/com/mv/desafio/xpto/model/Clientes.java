@@ -38,16 +38,14 @@ public class Clientes {
 	@NotNull(message = "Informe o tipo de pessoa.")
 	private TipoPessoa tipoPessoa;
 	
-	@NotBlank(message = "O CPF é obrigatório.")
-	@Size(max = 14, min = 14, message = "O CPF precisa conter 14 caracteres.")
+	@Size(max = 20)
 	private String cpf;
 	
-	@NotBlank(message = "O CNPJ é obrigatório.")
-	@Size(max = 18, min = 18, message = "O CPF precisa conter 18 caracteres.")
+	@Size(max = 25)
 	private String cnpj;
 	
 	@NotBlank(message = "O telefone é obrigatório.")
-	@Size(max = 15, min = 15, message = "O CPF precisa conter 15 caracteres.")
+	@Size(max = 25)
 	private String telefone;
 	
 	@NotBlank(message = "O email é obrigatório.")
@@ -60,7 +58,7 @@ public class Clientes {
 	@NotNull()
 	private TipoDeMovimentacao tipoDeMovimentacao;
 	
-	@NotNull()
+	@NotNull(message = "Para criar uma conta é obrigatório realizar uma movimentação")
 	private Double valorDaMovimentacao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
@@ -75,10 +73,6 @@ public class Clientes {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -91,24 +85,12 @@ public class Clientes {
 		return tipoPessoa;
 	}
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
-	}
-
 	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getCnpj() {
 		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
 	}
 
 	public String getTelefone() {
@@ -131,40 +113,20 @@ public class Clientes {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(Date dataDeCriacao) {
-		this.dataDeCriacao = dataDeCriacao;
-	}
-
 	public TipoDeMovimentacao getTipoDeMovimentacao() {
 		return tipoDeMovimentacao;
-	}
-
-	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
-		this.tipoDeMovimentacao = tipoDeMovimentacao;
 	}
 
 	public Double getValorDaMovimentacao() {
 		return valorDaMovimentacao;
 	}
 
-	public void setValorDaMovimentacao(Double valorDaMovimentacao) {
-		this.valorDaMovimentacao = valorDaMovimentacao;
-	}
-
 	public List<Contas> getListaDeContas() {
 		return listaDeContas;
 	}
 
-	public void setListaDeContas(List<Contas> listaDeContas) {
-		this.listaDeContas = listaDeContas;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
 	}
 	
 }
