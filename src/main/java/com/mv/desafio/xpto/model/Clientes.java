@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
 import jakarta.persistence.CascadeType;
