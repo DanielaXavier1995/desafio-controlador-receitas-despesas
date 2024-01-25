@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
 import jakarta.persistence.CascadeType;
@@ -54,11 +54,9 @@ public class Clientes {
 	private Date dataDeCriacao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
-	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
 	private List<Contas> listaDeContas;
 	
 	@ManyToOne //Cada cliente está ligada a um único endereço
-	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
 	private Endereco endereco;
 
 	public Long getId() {
@@ -112,5 +110,4 @@ public class Clientes {
 	public Endereco getEndereco() {
 		return endereco;
 	}
-	
 }

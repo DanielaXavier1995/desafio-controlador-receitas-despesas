@@ -2,6 +2,7 @@ package com.mv.desafio.xpto.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -43,7 +44,6 @@ public class Endereco {
 	private String cep;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
-	@JsonIgnoreProperties("endereco") //evita que os dados fiquem em loop;
 	private List<Clientes> listaDeClientes; //todos os endereços de clientes diferentes mas que possuem a mesma residência 
 
 	public Long getId() {

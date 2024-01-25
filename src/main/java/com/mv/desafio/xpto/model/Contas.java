@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
 import jakarta.persistence.CascadeType;
@@ -14,6 +14,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -30,33 +31,23 @@ public class Contas {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O numero da agencia é obrigatório.")
-	@Size(max = 5, message = "O número da agencia deve conter entre 5 e 4 caracteres.")
 	private String numeroDaAgencia;
 
-	@NotBlank(message = "O numero da conta corrente é obrigatório.")
-	@Size(max = 9, message = "O número da conta deve conter entre 7 e 9 caracteres.")
 	private String numeroDaContaCorrente;
 	
-	@NotBlank(message = "O nome da instituição é obrigatório.")
 	private String nomeDaInstituicao;
 	
 	private Double saldo;
 	
 	@UpdateTimestamp
-	private Date dataTransacao;
+	private Date dataCriacao;
 	
 	private boolean ativo;
-	
-	@NotNull()
-	private TipoDeMovimentacao tipoDeMovimentacao;
 
 	@ManyToOne //Cada conta está ligada a um único cliete
-	@JsonIgnoreProperties("conta") //evita que os dados fiquem em loop;
 	private Clientes cliente;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "conta", cascade = CascadeType.REMOVE) 
-	@JsonIgnoreProperties("cliente") //evita que os dados fiquem em loop;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "conta", cascade = CascadeType.REMOVE)  
 	private List<Movimentacoes> listaDeMovimentacoes;
 
 	public Long getId() {
@@ -115,28 +106,15 @@ public class Contas {
 		this.listaDeMovimentacoes = listaDeMovimentacoes;
 	}
 	
-	public Date getDataTransacao() {
-		return dataTransacao;
+	public Date getDataCriacao() {
+		return dataCriacao;
 	}
 
-	public void setDataTransacao(Date dataTransacao) {
-		this.dataTransacao = dataTransacao;
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
 	}
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = true;
-	}
-
-	
-	public TipoDeMovimentacao getTipoDeMovimentacao() {
-		return tipoDeMovimentacao;
-	}
-
-	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
-		this.tipoDeMovimentacao = tipoDeMovimentacao;
-	}
-
-	public void excluir() {
-		this.ativo = false;
 	}
 }

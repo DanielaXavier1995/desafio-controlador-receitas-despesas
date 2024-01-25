@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -23,19 +25,25 @@ public class Movimentacoes {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull()
-	private TipoDeMovimentacao tipoDeMovimentacao;
-	
-	private Double valorTotalMovimentacao;
-	
-	private Integer quantidadeDeMovimentacoes;
-	
 	@UpdateTimestamp
-	private Date dataMovimentacoes;
+	private Date data;
+	
+    private TipoDeMovimentacao tipo;
+	
+	private Double valor;
 	
 	@ManyToOne 
-	@JsonIgnoreProperties("conta") //evita que os dados fiquem em loop;
 	private Contas conta;
+	
+	public Movimentacoes() {
+		
+	}
+	
+	public Movimentacoes(TipoDeMovimentacao tipo, Double valor, Contas conta) {
+		this.tipo = tipo;
+		this.valor = valor;
+		this.conta = conta;
+	}
 
 	public Long getId() {
 		return id;
@@ -45,36 +53,28 @@ public class Movimentacoes {
 		this.id = id;
 	}
 
-	public TipoDeMovimentacao getTipoDeMovimentacao() {
-		return tipoDeMovimentacao;
+	public Date getData() {
+		return data;
 	}
 
-	public void setTipoDeMovimentacao(TipoDeMovimentacao tipoDeMovimentacao) {
-		this.tipoDeMovimentacao = tipoDeMovimentacao;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
-	public Double getValorTotalMovimentacao() {
-		return valorTotalMovimentacao;
+	public TipoDeMovimentacao getTipo() {
+		return tipo;
 	}
 
-	public void setValorTotalMovimentacao(Double valorTotalMovimentacao) {
-		this.valorTotalMovimentacao = valorTotalMovimentacao;
+	public void setTipo(TipoDeMovimentacao tipo) {
+		this.tipo = tipo;
 	}
 
-	public Integer getQuantidadeDeMovimentacoes() {
-		return quantidadeDeMovimentacoes;
+	public Double getValor() {
+		return valor;
 	}
 
-	public void setQuantidadeDeMovimentacoes(Integer quantidadeDeMovimentacoes) {
-		this.quantidadeDeMovimentacoes = quantidadeDeMovimentacoes;
-	}
-
-	public Date getDataMovimentacoes() {
-		return dataMovimentacoes;
-	}
-
-	public void setDataMovimentacoes(Date dataMovimentacoes) {
-		this.dataMovimentacoes = dataMovimentacoes;
+	public void setValor(Double valor) {
+		this.valor = valor;
 	}
 
 	public Contas getConta() {
@@ -84,4 +84,5 @@ public class Movimentacoes {
 	public void setConta(Contas conta) {
 		this.conta = conta;
 	}
+	
 }
