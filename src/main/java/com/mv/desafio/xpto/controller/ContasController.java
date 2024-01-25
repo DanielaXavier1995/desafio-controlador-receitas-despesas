@@ -48,6 +48,7 @@ public class ContasController {
 	//Exibe um DTO
 	@GetMapping
 	public ResponseEntity<List<RespostaContaDto>> getAll() {
+		
 		//Lista de contas(Model)
 		List<Contas> contasList = contaRepository.findAll();
 		
@@ -122,7 +123,7 @@ public class ContasController {
 		//Salvar conta
 		Contas contaCriada = contaRepository.save(conta);
 		
-		//Settar campos de movimentação
+		//Settar campos de movimentação para popular o banco de dados
 		Movimentacoes movimentacao = new Movimentacoes();
 		movimentacao.setTipo(TipoDeMovimentacao.RECEITA);
 		movimentacao.setConta(contaCriada);
@@ -133,18 +134,21 @@ public class ContasController {
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 			   .body(new RespostaGenericaDto("Conta Criada com sucesso!"));
-		
-	 }
+	  }
 	
 	 @DeleteMapping("/{id}")
 	 @ResponseStatus(HttpStatus.NO_CONTENT)
 	 public void delete (@PathVariable Long id) {
+		 
+		//Buscar id
 		Optional<Contas> conta = contaRepository.findById(id);
-			
+		
+		//Validar id
 		if(conta.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 	    }
 		
+		//Deleção Lógica
 		conta.get().setAtivo(false);
 		
 		contaRepository.save(conta.get());

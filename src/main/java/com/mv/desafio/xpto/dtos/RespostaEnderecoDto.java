@@ -90,5 +90,4 @@ public class RespostaEnderecoDto {
 	public void setListaDeClientes(List<RespostaClienteDto> listaDeClientes) {
 		this.listaDeClientes = listaDeClientes;
 	}
-
 }
