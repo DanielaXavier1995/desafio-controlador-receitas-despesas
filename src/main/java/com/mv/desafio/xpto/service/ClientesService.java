@@ -2,19 +2,21 @@ package com.mv.desafio.xpto.service;
 
 import org.springframework.stereotype.Service;
 
+import com.mv.desafio.xpto.dtos.CriarClienteDTO;
 import com.mv.desafio.xpto.enums.TipoPessoa;
-import com.mv.desafio.xpto.model.Clientes;
+
 
 @Service
 public class ClientesService {
 	
-	public void validarTipoPessoa(Clientes cliente) {
+	//Método para validar se estamos tratando de uma PF ou PJ
+	public void validarTipoPessoa(CriarClienteDTO criarcliente) {
 
-        if (cliente.getTipoPessoa() == TipoPessoa.PESSOA_FISICA && cliente.getCpf() == null) {
+        if (criarcliente.getTipoPessoa() == TipoPessoa.PESSOA_FISICA && criarcliente.getCpf() == null) {
             throw new IllegalArgumentException("O CPF é obrigatório para pessoa física.");
         }
 
-        if (cliente.getTipoPessoa() == TipoPessoa.PESSOA_JURIDICA && cliente.getCnpj() == null) {
+        if (criarcliente.getTipoPessoa() == TipoPessoa.PESSOA_JURIDICA && criarcliente.getCnpj() == null) {
             throw new IllegalArgumentException("O CNPJ é obrigatório para pessoa jurídica.");
         }
     }
