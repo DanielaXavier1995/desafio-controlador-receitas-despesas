@@ -45,6 +45,7 @@ public class ContasController {
 	@Autowired
 	private MovimentacoesRepository movimentacoesRepository;
 	
+	//Exibe um DTO
 	@GetMapping
 	public ResponseEntity<List<RespostaContaDto>> getAll() {
 		//Lista de contas(Model)
@@ -58,27 +59,33 @@ public class ContasController {
 		return ResponseEntity.ok(respostaContaList);
 	}
 	
+	//Exibe um DTO
 	@GetMapping("/{id}") 
 	public ResponseEntity<RespostaContaDto> getById(@PathVariable Long id) {
 		
+		//Buscar o id da conta recebido no path 
 		Optional<Contas> conta = contaRepository.findById(id);
 		
+		//Validar id
 		if(conta.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
 		
+		//Retorna o método privado mapearConta que transforma uma Entidade Contas em DTO
 		return ResponseEntity.status(HttpStatus.OK).body(mapearConta(conta.get()));
 	}
 	
 	private RespostaContaDto mapearConta(Contas conta) {
+		
 		//Converções:
-		//conta
+		
+		//conta:
 		RespostaContaDto respostaConta = MapearCamposUtil.converterConta(conta);
 				
-		//cliente
+		//cliente:
 		respostaConta.setCliente(MapearCamposUtil.converterCliente(conta.getCliente()));
 				
-		//lista de movimentações
+		//lista de movimentações:
 		List<RespostaMovimentacaoDto> listaMovimentacao = conta.getListaDeMovimentacoes() 
 			.stream() //Converter a lista de Movimentações
 			.map(movimentacao -> MapearCamposUtil.converterMovimentacao(movimentacao)) 
@@ -89,6 +96,7 @@ public class ContasController {
 		return respostaConta;
 	}
 	
+	//Recebe um DTO e transforma em um Model do tipo Contas para persistir os dados no banco
 	@PostMapping
 	public ResponseEntity<RespostaGenericaDto> create(@Valid @RequestBody CriarContaDto criarConta) {
         
