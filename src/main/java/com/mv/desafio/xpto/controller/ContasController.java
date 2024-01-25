@@ -2,6 +2,7 @@ package com.mv.desafio.xpto.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,10 +17,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.mv.desafio.xpto.dtos.CriarContaDto;
+import com.mv.desafio.xpto.dtos.RespostaContaDto;
+import com.mv.desafio.xpto.dtos.RespostaGenericaDto;
+import com.mv.desafio.xpto.dtos.RespostaMovimentacaoDto;
+import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
+import com.mv.desafio.xpto.model.Clientes;
 import com.mv.desafio.xpto.model.Contas;
+import com.mv.desafio.xpto.model.Movimentacoes;
+import com.mv.desafio.xpto.repository.ClientesRepository;
 import com.mv.desafio.xpto.repository.ContasRepository;
+import com.mv.desafio.xpto.repository.MovimentacoesRepository;
+import com.mv.desafio.xpto.util.MapearCamposUtil;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
@@ -29,38 +39,106 @@ public class ContasController {
 	@Autowired
 	private ContasRepository contaRepository;
 	
+	@Autowired
+	private ClientesRepository clienteRepository;
+	
+	@Autowired
+	private MovimentacoesRepository movimentacoesRepository;
+	
 	@GetMapping
-	public ResponseEntity<List<Contas>> getAll() {
-		return ResponseEntity.ok(contaRepository.findAll());
+	public ResponseEntity<List<RespostaContaDto>> getAll() {
+		//Lista de contas(Model)
+		List<Contas> contasList = contaRepository.findAll();
+		
+		//Lista de contas(DTO)
+		List<RespostaContaDto> respostaContaList = contasList.stream()
+				.map(conta -> mapearConta(conta))
+				.collect(Collectors.toList());
+		
+		return ResponseEntity.ok(respostaContaList);
 	}
 	
 	@GetMapping("/{id}") 
-	public ResponseEntity<Contas> getById(@PathVariable Long id) {
-		return contaRepository.findById(id)
-				.map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	public ResponseEntity<RespostaContaDto> getById(@PathVariable Long id) {
+		
+		Optional<Contas> conta = contaRepository.findById(id);
+		
+		if(conta.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(mapearConta(conta.get()));
+	}
+	
+	private RespostaContaDto mapearConta(Contas conta) {
+		//Converções:
+		//conta
+		RespostaContaDto respostaConta = MapearCamposUtil.converterConta(conta);
+				
+		//cliente
+		respostaConta.setCliente(MapearCamposUtil.converterCliente(conta.getCliente()));
+				
+		//lista de movimentações
+		List<RespostaMovimentacaoDto> listaMovimentacao = conta.getListaDeMovimentacoes() 
+			.stream() //Converter a lista de Movimentações
+			.map(movimentacao -> MapearCamposUtil.converterMovimentacao(movimentacao)) 
+			.collect(Collectors.toList());
+				
+		respostaConta.setListaDeMovimentacoes(listaMovimentacao);
+		
+		return respostaConta;
 	}
 	
 	@PostMapping
-	public ResponseEntity<Contas> post(@Valid @RequestBody Contas conta) {
+	public ResponseEntity<RespostaGenericaDto> create(@Valid @RequestBody CriarContaDto criarConta) {
+        
+		//Buscar cliente
+		Optional<Clientes> cliente = clienteRepository.findById(criarConta.getClienteId());
+		
+		//Validar cliente
+		if(cliente.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		
+		//Objeto conta
+		Contas conta = new Contas();
+		
+		// Transformar DTO em model:
+		conta.setNumeroDaAgencia(criarConta.getNumeroDaAgencia());
+		conta.setNumeroDaContaCorrente(criarConta.getNumeroDaContaCorrente());
+		conta.setNomeDaInstituicao(criarConta.getNomeDaInstituicao());
+		conta.setSaldo(0.0);
+		conta.setAtivo(true);
+		conta.setCliente(cliente.get());
+		
+		//Salvar conta
+		Contas contaCriada = contaRepository.save(conta);
+		
+		//Settar campos de movimentação
+		Movimentacoes movimentacao = new Movimentacoes();
+		movimentacao.setTipo(TipoDeMovimentacao.RECEITA);
+		movimentacao.setConta(contaCriada);
+		movimentacao.setValor(0.0);
+		
+		//Salvar
+		movimentacoesRepository.save(movimentacao);
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(contaRepository.save(conta));
+			   .body(new RespostaGenericaDto("Conta Criada com sucesso!"));
 		
-	}
+	 }
 	
-	 @ResponseStatus(HttpStatus.NO_CONTENT)
-	 @Transactional
 	 @DeleteMapping("/{id}")
+	 @ResponseStatus(HttpStatus.NO_CONTENT)
 	 public void delete (@PathVariable Long id) {
 		Optional<Contas> conta = contaRepository.findById(id);
 			
-			if(conta.isEmpty()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			}
-			
-		var buscarConta = contaRepository.getReferenceById(id);
-			
-		buscarConta.excluir();
-	 }
+		if(conta.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	    }
+		
+		conta.get().setAtivo(false);
+		
+		contaRepository.save(conta.get());
+	}
 }
