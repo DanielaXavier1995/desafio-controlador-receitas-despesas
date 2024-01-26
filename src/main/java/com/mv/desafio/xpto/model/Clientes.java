@@ -1,5 +1,6 @@
 package com.mv.desafio.xpto.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,12 +41,29 @@ public class Clientes {
 	@UpdateTimestamp
 	private Date dataDeCriacao;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) // um cliente pode ter mais
-																							// de uma conta
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) // um cliente pode ter mais																				// de uma conta
 	private List<Contas> listaDeContas;
 
 	@ManyToOne // Cada cliente está ligado a um único endereço
 	private Endereco endereco;
+	
+	public Clientes() {
+
+	}
+
+	public Clientes(Long id, String nome, TipoPessoa tipoPessoa, String cpf, String cnpj, String telefone, String email,
+			Date dataDeCriacao, Endereco endereco) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.tipoPessoa = tipoPessoa;
+		this.cpf = cpf;
+		this.cnpj = cnpj;
+		this.telefone = telefone;
+		this.email = email;
+		this.dataDeCriacao = dataDeCriacao;
+		this.endereco = endereco;
+	}
 
 	public Long getId() {
 		return id;
@@ -108,7 +126,7 @@ public class Clientes {
 	}
 
 	public List<Contas> getListaDeContas() {
-		return listaDeContas;
+		return listaDeContas = new ArrayList<>();
 	}
 
 	public Endereco getEndereco() {

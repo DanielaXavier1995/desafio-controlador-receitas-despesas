@@ -1,5 +1,6 @@
 package com.mv.desafio.xpto.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -33,10 +34,22 @@ public class Endereco {
 
 	private String cep;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco", cascade = CascadeType.REMOVE) // um cliente pode ter mais
-																							// de uma conta
-	private List<Clientes> listaDeClientes; // todos os endereços de clientes diferentes mas que possuem a mesma
-											// residência
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco", cascade = CascadeType.REMOVE) // um cliente pode ter mais																						// de uma conta
+	private List<Clientes> listaDeClientes; // todos os endereços de clientes diferentes mas que possuem a mesma residência
+		
+	public Endereco() {
+
+	}
+
+	public Endereco(Long id, String rua, String numero, String bairro, String cidade, String uf, String cep) {
+		this.id = id;
+		this.rua = rua;
+		this.numero = numero;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.uf = uf;
+		this.cep = cep;
+	}
 
 	public Long getId() {
 		return id;
@@ -103,7 +116,7 @@ public class Endereco {
 	}
 
 	public List<Clientes> getListaDeClientes() {
-		return listaDeClientes;
+		return listaDeClientes = new ArrayList<>();
 	}
 
 	public void setListaDeClientes(List<Clientes> listaDeClientes) {

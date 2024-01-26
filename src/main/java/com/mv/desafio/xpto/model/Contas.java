@@ -1,5 +1,6 @@
 package com.mv.desafio.xpto.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +42,22 @@ public class Contas {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "conta", cascade = CascadeType.REMOVE)
 	private List<Movimentacoes> listaDeMovimentacoes;
+	
+	public Contas() {
+		
+	}
+
+	public Contas(Long id, String numeroDaAgencia, String numeroDaContaCorrente, String nomeDaInstituicao, Double saldo,
+			Date dataCriacao, boolean ativo, Clientes cliente) {
+		this.id = id;
+		this.numeroDaAgencia = numeroDaAgencia;
+		this.numeroDaContaCorrente = numeroDaContaCorrente;
+		this.nomeDaInstituicao = nomeDaInstituicao;
+		this.saldo = saldo;
+		this.dataCriacao = dataCriacao;
+		this.ativo = ativo;
+		this.cliente = cliente;
+	}
 
 	public Long getId() {
 		return id;
@@ -91,7 +108,7 @@ public class Contas {
 	}
 
 	public List<Movimentacoes> getListaDeMovimentacoes() {
-		return listaDeMovimentacoes;
+		return listaDeMovimentacoes = new ArrayList<>();
 	}
 
 	public void setListaDeMovimentacoes(List<Movimentacoes> listaDeMovimentacoes) {
