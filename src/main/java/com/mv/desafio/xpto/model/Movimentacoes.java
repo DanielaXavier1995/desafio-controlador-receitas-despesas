@@ -41,6 +41,15 @@ public class Movimentacoes {
 		this.conta = conta;
 	}
 
+	public Movimentacoes(Long id, Date data, TipoDeMovimentacao tipo, Double valor, Contas conta) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.tipo = tipo;
+		this.valor = valor;
+		this.conta = conta;
+	}
+
 	public Long getId() {
 		return id;
 	}
