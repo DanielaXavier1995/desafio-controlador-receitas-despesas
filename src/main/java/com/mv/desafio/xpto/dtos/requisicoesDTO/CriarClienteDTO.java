@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import com.mv.desafio.xpto.enums.TipoPessoa;
 import com.mv.desafio.xpto.model.Endereco;
@@ -9,34 +9,34 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CriarClienteDTO {
-	
+
 	@NotBlank(message = "O Nome é obrigatório.")
 	private String nome;
-	
+
 	@NotNull(message = "Informe o tipo de pessoa.")
 	private TipoPessoa tipoPessoa;
-	
+
 	@Size(max = 20)
 	private String cpf;
-	
+
 	@Size(max = 25)
 	private String cnpj;
-	
+
 	@NotBlank(message = "O telefone é obrigatório.")
 	@Size(max = 25)
 	private String telefone;
-	
+
 	@NotBlank(message = "O email é obrigatório.")
 	@Email(message = "O Email deve ser um email válido.")
 	private String email;
-	
+
 	@NotNull(message = "O endereço do cliente é obrigatório.")
-    private Long enderecoId;
-	
+	private Long enderecoId;
+
 	private Endereco endereco;
-	
+
 	public CriarClienteDTO() {
-		
+
 	}
 
 	public String getNome() {

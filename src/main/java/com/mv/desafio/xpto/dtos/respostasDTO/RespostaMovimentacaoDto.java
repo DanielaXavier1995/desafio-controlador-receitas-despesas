@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.respostasDTO;
 
 import java.util.Date;
 
@@ -7,15 +7,15 @@ import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RespostaMovimentacaoDto {
-	
+
 	private Date data;
-	
+
 	private TipoDeMovimentacao tipo;
-	
+
 	private Double valor;
-	
+
 	public RespostaMovimentacaoDto() {
-		
+
 	}
 
 	public Date getData() {

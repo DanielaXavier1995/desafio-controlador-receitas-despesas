@@ -1,18 +1,15 @@
-package com.mv.desafio.xpto.dtos;
-
-import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
+package com.mv.desafio.xpto.dtos.respostasDTO;
 
 public class RespostaGenericaDto {
 
 	private String mensagem;
-	
 
 	public RespostaGenericaDto(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
+
 	public RespostaGenericaDto() {
-		
+
 	}
 
 	public String getMensagem() {
@@ -22,7 +19,4 @@ public class RespostaGenericaDto {
 	public void setMensagem(String mensagem) {
 		this.mensagem = mensagem;
 	}
-	
-	
-	
 }

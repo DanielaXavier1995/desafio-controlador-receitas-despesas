@@ -1,25 +1,24 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import com.mv.desafio.xpto.model.Endereco;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class AtualizarClienteDto {
 
 	private String nome;
-	
+
 	@Size(max = 25)
 	private String telefone;
-	
+
 	@Email(message = "O Email deve ser um email válido.")
 	private String email;
-	
+
 	private Endereco endereco;
 
 	public AtualizarClienteDto() {
-		
+
 	}
 
 	public String getNome() {
