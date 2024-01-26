@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class CriarContaDto {
-	
+
 	@NotBlank(message = "O numero da agencia é obrigatório.")
 	@Size(max = 5, message = "O número da agencia deve conter entre 5 e 4 caracteres.")
 	private String numeroDaAgencia;
@@ -13,17 +13,17 @@ public class CriarContaDto {
 	@NotBlank(message = "O numero da conta corrente é obrigatório.")
 	@Size(max = 9, message = "O número da conta deve conter entre 7 e 9 caracteres.")
 	private String numeroDaContaCorrente;
-	
+
 	@NotBlank(message = "O nome da instituição é obrigatório.")
 	private String nomeDaInstituicao;
-	
+
 	@NotNull(message = "O id do cliente é obrigatório.")
-    private Long clienteId;
-	
+	private Long clienteId;
+
 	public CriarContaDto() {
-		
+
 	}
-			
+
 	public String getNumeroDaAgencia() {
 		return numeroDaAgencia;
 	}

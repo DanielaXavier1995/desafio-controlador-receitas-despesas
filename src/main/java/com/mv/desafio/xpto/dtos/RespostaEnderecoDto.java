@@ -6,25 +6,25 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RespostaEnderecoDto {
-	
+
 	private String rua;
-	
+
 	private String numero;
-	
+
 	private String complemento;
-	
+
 	private String bairro;
-	
+
 	private String cidade;
-	
+
 	private String uf;
-	
+
 	private String cep;
 
 	private List<RespostaClienteDto> listaDeClientes;
-	
+
 	public RespostaEnderecoDto() {
-		
+
 	}
 
 	public String getRua() {

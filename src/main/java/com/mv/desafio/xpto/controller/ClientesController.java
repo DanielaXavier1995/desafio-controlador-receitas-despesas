@@ -36,144 +36,142 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/clientes")
 public class ClientesController {
-	
+
 	@Autowired
 	private ClientesRepository clientesRepository;
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
 	private ClientesService clientesService;
-	
-	//Exibe um DTO
+
+	// Exibe um DTO
 	@GetMapping
 	public ResponseEntity<List<RespostaClienteDto>> getAll() {
-		
-		//Lista de Clientes(Model)
+
+		// Lista de Clientes(Model)
 		List<Clientes> clienteList = clientesRepository.findAll();
-				
-		//Lista de contas(DTO)
-		List<RespostaClienteDto> respostaClienteList = clienteList.stream()
-			 .map(cliente -> mapearCliente(cliente))
-			 .collect(Collectors.toList());
-				
+
+		// Lista de contas(DTO)
+		List<RespostaClienteDto> respostaClienteList = clienteList.stream().map(cliente -> mapearCliente(cliente))
+				.collect(Collectors.toList());
+
 		return ResponseEntity.ok(respostaClienteList);
 	}
-	
-	//Exibe um DTO
+
+	// Exibe um DTO
 	@GetMapping("/{id}")
 	public ResponseEntity<RespostaClienteDto> getById(@PathVariable Long id) {
-		
-		//Buscar o id da conta recebido no path 
+
+		// Buscar o id da conta recebido no path
 		Optional<Clientes> cliente = clientesRepository.findById(id);
-				
-		//Validar id
-		if(cliente.isEmpty()) {
+
+		// Validar id
+		if (cliente.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-				
-		//Retorna o método privado mapearConta que transforma uma Entidade Cliente em DTO
+
+		// Retorna o método privado mapearConta que transforma uma Entidade Cliente em
+		// DTO
 		return ResponseEntity.status(HttpStatus.OK).body(mapearCliente(cliente.get()));
 	}
-	
-    private RespostaClienteDto mapearCliente(Clientes cliente) {
-		
-		//Converções:
-		
-		//cliente:
+
+	private RespostaClienteDto mapearCliente(Clientes cliente) {
+
+		// Converções:
+
+		// cliente:
 		RespostaClienteDto respostaCliente = MapearCamposUtil.converterCliente(cliente);
-				
-		//objeto endereco:
+
+		// objeto endereco:
 		respostaCliente.setEndereco(MapearCamposUtil.converterEndereco(cliente.getEndereco()));
-				
-		//lista de contas:
-		List<RespostaContaDto> listaConta = cliente.getListaDeContas() 
-			.stream() 
-			.map(conta -> MapearCamposUtil.converterConta(conta)) 
-			.collect(Collectors.toList());
-				
+
+		// lista de contas:
+		List<RespostaContaDto> listaConta = cliente.getListaDeContas().stream()
+				.map(conta -> MapearCamposUtil.converterConta(conta)).collect(Collectors.toList());
+
 		respostaCliente.setListaDeContas(listaConta);
-		
+
 		return respostaCliente;
 	}
-	
-    //Recebe um DTO e transforma em um Model do tipo Cliente para persistir os dados no banco
+
+	// Recebe um DTO e transforma em um Model do tipo Cliente para persistir os
+	// dados no banco
 	@PostMapping
 	public ResponseEntity<RespostaGenericaDto> create(@Valid @RequestBody CriarClienteDTO criarcliente) {
-	
-		//Validar PF ou PJ
+
+		// Validar PF ou PJ
 		clientesService.validarTipoPessoa(criarcliente);
-		
-		//Objeto Cliente
+
+		// Objeto Cliente
 		Clientes cliente = new Clientes();
-		
-		//Transformar DTO em model:
+
+		// Transformar DTO em model:
 		cliente.setNome(criarcliente.getNome());
 		cliente.setTipoPessoa(criarcliente.getTipoPessoa());
 		cliente.setCpf(criarcliente.getCpf());
 		cliente.setCnpj(criarcliente.getCnpj());
 		cliente.setTelefone(criarcliente.getTelefone());
 		cliente.setEmail(criarcliente.getEmail());
-		
-		//Buscar endereco
-		Optional<Endereco> endereco = enderecoRepository.findById(criarcliente.getEnderecoId());
-						
-		//Validar endereco
-		if(endereco.isEmpty()) {
-			 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		}
-		
-	    cliente.setEndereco(endereco.get());
-		
-		//Salvar cliente
-		Clientes clienteCriado = clientesRepository.save(cliente);
-		
-		return ResponseEntity.status(HttpStatus.CREATED)
-				 .body(new RespostaGenericaDto("Cliente criado com sucesso!"));
 
-	}
-	
-	@PutMapping("/{id}")
-	public ResponseEntity<RespostaGenericaDto> update(@PathVariable Long id, @Valid @RequestBody AtualizarClienteDto atualizarCliente) {
-		
-		//Buscar Cliente
-		Optional<Clientes> cliente = clientesRepository.findById(id);
-		
-		//Validar Cliente
-		if(cliente.isEmpty()) {
+		// Buscar endereco
+		Optional<Endereco> endereco = enderecoRepository.findById(criarcliente.getEnderecoId());
+
+		// Validar endereco
+		if (endereco.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-	    
-		//Valida se os campos não vem nulos e atualiza
-		if(Objects.nonNull(atualizarCliente.getNome())) {
+
+		cliente.setEndereco(endereco.get());
+
+		// Salvar cliente
+		clientesRepository.save(cliente);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(new RespostaGenericaDto("Cliente criado com sucesso!"));
+
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<RespostaGenericaDto> update(@PathVariable Long id,
+			@Valid @RequestBody AtualizarClienteDto atualizarCliente) {
+
+		// Buscar Cliente
+		Optional<Clientes> cliente = clientesRepository.findById(id);
+
+		// Validar Cliente
+		if (cliente.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+
+		// Valida se os campos não vem nulos e atualiza
+		if (Objects.nonNull(atualizarCliente.getNome())) {
 			cliente.get().setNome(atualizarCliente.getNome());
 		}
-		
-		if(Objects.nonNull(atualizarCliente.getTelefone())) {
+
+		if (Objects.nonNull(atualizarCliente.getTelefone())) {
 			cliente.get().setTelefone(atualizarCliente.getTelefone());
 		}
-		
-		if(Objects.nonNull(atualizarCliente.getEmail())) {
+
+		if (Objects.nonNull(atualizarCliente.getEmail())) {
 			cliente.get().setEmail(atualizarCliente.getEmail());
 
 		}
-		
+
 		clientesRepository.save(cliente.get());
-		
-		return ResponseEntity.status(HttpStatus.OK)
-    			.body(new RespostaGenericaDto("Cliente atualizado com sucesso!"));
-	} 
-	
-	 @ResponseStatus(HttpStatus.NO_CONTENT)
-	 @DeleteMapping("/{id}")
-	 public void delete(@PathVariable Long id) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(new RespostaGenericaDto("Cliente atualizado com sucesso!"));
+	}
+
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable Long id) {
 		Optional<Clientes> cliente = clientesRepository.findById(id);
-			
-			if(cliente.isEmpty()) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			}
-			
+
+		if (cliente.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+
 		clientesRepository.deleteById(id);
-	 }
+	}
 }

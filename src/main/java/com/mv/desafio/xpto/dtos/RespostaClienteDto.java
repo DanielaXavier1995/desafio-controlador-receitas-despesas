@@ -8,27 +8,27 @@ import com.mv.desafio.xpto.enums.TipoPessoa;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RespostaClienteDto {
-	
+
 	private String nome;
-	
+
 	private TipoPessoa tipoPessoa;
-	
+
 	private String cpf;
-	
+
 	private String cnpj;
-	
+
 	private String telefone;
-	
+
 	private String email;
-	
+
 	private Date dataDeCriacao;
-	
+
 	private List<RespostaContaDto> listaDeContas;
-	
+
 	private RespostaEnderecoDto endereco;
-	
+
 	public RespostaClienteDto() {
-		
+
 	}
 
 	public String getNome() {

@@ -20,36 +20,37 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_clientes")
 public class Clientes {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private TipoPessoa tipoPessoa;
-	
+
 	private String cpf;
-	
+
 	private String cnpj;
-	
+
 	private String telefone;
-	
+
 	private String email;
-	
+
 	@UpdateTimestamp
 	private Date dataDeCriacao;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) // um cliente pode ter mais
+																							// de uma conta
 	private List<Contas> listaDeContas;
-	
-	@ManyToOne //Cada cliente está ligado a um único endereço
+
+	@ManyToOne // Cada cliente está ligado a um único endereço
 	private Endereco endereco;
 
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -65,7 +66,7 @@ public class Clientes {
 	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
-	
+
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
@@ -81,7 +82,7 @@ public class Clientes {
 	public String getCnpj() {
 		return cnpj;
 	}
-	
+
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}

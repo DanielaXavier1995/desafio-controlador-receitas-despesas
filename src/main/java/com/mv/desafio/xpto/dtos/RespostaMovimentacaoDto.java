@@ -7,15 +7,15 @@ import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RespostaMovimentacaoDto {
-	
+
 	private Date data;
-	
+
 	private TipoDeMovimentacao tipo;
-	
+
 	private Double valor;
-	
+
 	public RespostaMovimentacaoDto() {
-		
+
 	}
 
 	public Date getData() {

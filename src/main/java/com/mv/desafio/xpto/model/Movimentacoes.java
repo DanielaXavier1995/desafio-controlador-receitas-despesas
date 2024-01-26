@@ -4,41 +4,37 @@ import java.util.Date;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mv.desafio.xpto.enums.TipoDeMovimentacao;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_movimentacoes")
 public class Movimentacoes {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@UpdateTimestamp
 	private Date data;
-	
-    private TipoDeMovimentacao tipo;
-	
+
+	private TipoDeMovimentacao tipo;
+
 	private Double valor;
-	
-	@ManyToOne 
+
+	@ManyToOne
 	private Contas conta;
-	
+
 	public Movimentacoes() {
-		
+
 	}
-	
+
 	public Movimentacoes(TipoDeMovimentacao tipo, Double valor, Contas conta) {
 		this.tipo = tipo;
 		this.valor = valor;
@@ -84,5 +80,4 @@ public class Movimentacoes {
 	public void setConta(Contas conta) {
 		this.conta = conta;
 	}
-	
 }

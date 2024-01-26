@@ -7,23 +7,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RespostaContaDto {
-	
+
 	private String numeroDaAgencia;
 
 	private String numeroDaContaCorrente;
-	
+
 	private String nomeDaInstituicao;
-	
+
 	private Double saldo;
-	
+
 	private Date dataCriacao;
 
 	private RespostaClienteDto cliente;
-	 
+
 	private List<RespostaMovimentacaoDto> listaDeMovimentacoes;
 
 	public RespostaContaDto() {
-		
+
 	}
 
 	public String getNumeroDaAgencia() {
@@ -81,5 +81,4 @@ public class RespostaContaDto {
 	public void setListaDeMovimentacoes(List<RespostaMovimentacaoDto> listaDeMovimentacoes) {
 		this.listaDeMovimentacoes = listaDeMovimentacoes;
 	}
-
 }
