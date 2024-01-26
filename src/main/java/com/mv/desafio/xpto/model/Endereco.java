@@ -23,24 +23,18 @@ public class Endereco {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O nome da rua é obrigatório.")
 	private String rua;
 	
-	@NotBlank(message = "O número é obrigatório.")
 	private String numero;
 	
 	private String complemento;
 	
-	@NotBlank(message = "O bairro é obrigatório.")
 	private String bairro;
 	
-	@NotBlank(message = "A cidade é obrigatória.")
 	private String cidade;
 	
-	@NotBlank(message = "O UF é obrigatório.")
 	private String uf;
 	
-	@NotBlank(message = "O CEP é obrigatório.")
 	private String cep;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta

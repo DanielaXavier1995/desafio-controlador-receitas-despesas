@@ -1,29 +1,29 @@
 package com.mv.desafio.xpto.dtos;
 
-import java.util.List;
+import jakarta.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class RespostaEnderecoDto {
+public class AtualizarEnderecoDto {
 	
+	@NotBlank(message = "O nome da rua é obrigatório.")
 	private String rua;
 	
 	private String numero;
 	
 	private String complemento;
 	
+	@NotBlank(message = "O bairro é obrigatório.")
 	private String bairro;
 	
+	@NotBlank(message = "A cidade é obrigatória.")
 	private String cidade;
 	
+	@NotBlank(message = "O UF é obrigatório.")
 	private String uf;
 	
+	@NotBlank(message = "O CEP é obrigatório.")
 	private String cep;
 
-	private List<RespostaClienteDto> listaDeClientes;
-	
-	public RespostaEnderecoDto() {
+	public AtualizarEnderecoDto() {
 		
 	}
 
@@ -82,12 +82,5 @@ public class RespostaEnderecoDto {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-
-	public List<RespostaClienteDto> getListaDeClientes() {
-		return listaDeClientes;
-	}
-
-	public void setListaDeClientes(List<RespostaClienteDto> listaDeClientes) {
-		this.listaDeClientes = listaDeClientes;
-	}
+	
 }

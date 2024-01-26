@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
 import jakarta.persistence.CascadeType;
@@ -17,10 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_clientes")
@@ -30,37 +25,33 @@ public class Clientes {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank(message = "O Nome é obrigatório.")
 	private String nome;
 	
-	@NotNull(message = "Informe o tipo de pessoa.")
 	private TipoPessoa tipoPessoa;
 	
-	@Size(max = 20)
 	private String cpf;
 	
-	@Size(max = 25)
 	private String cnpj;
 	
-	@NotBlank(message = "O telefone é obrigatório.")
-	@Size(max = 25)
 	private String telefone;
 	
-	@NotBlank(message = "O email é obrigatório.")
-	@Email(message = "O Email deve ser um email válido.")
 	private String email;
 	
-	@UpdateTimestamp //Gerar data automática;
+	@UpdateTimestamp
 	private Date dataDeCriacao;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
 	private List<Contas> listaDeContas;
 	
-	@ManyToOne //Cada cliente está ligada a um único endereço
+	@ManyToOne //Cada cliente está ligado a um único endereço
 	private Endereco endereco;
 
 	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -74,13 +65,25 @@ public class Clientes {
 	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
+	
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
 
 	public String getCpf() {
 		return cpf;
 	}
 
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
 	public String getCnpj() {
 		return cnpj;
+	}
+	
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getTelefone() {
@@ -109,5 +112,9 @@ public class Clientes {
 
 	public Endereco getEndereco() {
 		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 }
