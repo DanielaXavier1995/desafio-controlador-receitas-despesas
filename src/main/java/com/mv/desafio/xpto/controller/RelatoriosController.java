@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mv.desafio.xpto.dtos.respostasDTO.RespostaGenericaDto;
+import com.mv.desafio.xpto.dtos.respostasDto.RespostaGenericaDto;
 import com.mv.desafio.xpto.model.Clientes;
 import com.mv.desafio.xpto.model.Contas;
 import com.mv.desafio.xpto.repository.ClientesRepository;

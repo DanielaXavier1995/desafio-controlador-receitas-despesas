@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos.respostasDTO;
+package com.mv.desafio.xpto.dtos.respostasDto;
 
 import java.util.Date;
 import java.util.List;

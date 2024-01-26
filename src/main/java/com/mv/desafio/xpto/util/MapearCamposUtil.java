@@ -1,9 +1,9 @@
 package com.mv.desafio.xpto.util;
 
-import com.mv.desafio.xpto.dtos.respostasDTO.RespostaClienteDto;
-import com.mv.desafio.xpto.dtos.respostasDTO.RespostaContaDto;
-import com.mv.desafio.xpto.dtos.respostasDTO.RespostaEnderecoDto;
-import com.mv.desafio.xpto.dtos.respostasDTO.RespostaMovimentacaoDto;
+import com.mv.desafio.xpto.dtos.respostasDto.RespostaClienteDto;
+import com.mv.desafio.xpto.dtos.respostasDto.RespostaContaDto;
+import com.mv.desafio.xpto.dtos.respostasDto.RespostaEnderecoDto;
+import com.mv.desafio.xpto.dtos.respostasDto.RespostaMovimentacaoDto;
 import com.mv.desafio.xpto.model.Clientes;
 import com.mv.desafio.xpto.model.Contas;
 import com.mv.desafio.xpto.model.Endereco;
