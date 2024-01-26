@@ -1,27 +1,11 @@
-package com.mv.desafio.xpto.model;
+package com.mv.desafio.xpto.dtos;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-
-@Entity
-@Table(name = "tb_enderecos")
-public class Endereco {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class RespostaEnderecoDto {
 	
 	private String rua;
 	
@@ -37,15 +21,10 @@ public class Endereco {
 	
 	private String cep;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "endereco", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
-	private List<Clientes> listaDeClientes; //todos os endereços de clientes diferentes mas que possuem a mesma residência 
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	private List<RespostaClienteDto> listaDeClientes;
+	
+	public RespostaEnderecoDto() {
+		
 	}
 
 	public String getRua() {
@@ -104,13 +83,11 @@ public class Endereco {
 		this.cep = cep;
 	}
 
-	public List<Clientes> getListaDeClientes() {
+	public List<RespostaClienteDto> getListaDeClientes() {
 		return listaDeClientes;
 	}
 
-	public void setListaDeClientes(List<Clientes> listaDeClientes) {
+	public void setListaDeClientes(List<RespostaClienteDto> listaDeClientes) {
 		this.listaDeClientes = listaDeClientes;
 	}
-	
-	
 }

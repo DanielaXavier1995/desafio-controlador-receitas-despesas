@@ -1,29 +1,13 @@
-package com.mv.desafio.xpto.model;
+package com.mv.desafio.xpto.dtos;
 
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.annotations.UpdateTimestamp;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "tb_clientes")
-public class Clientes {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class RespostaClienteDto {
 	
 	private String nome;
 	
@@ -37,21 +21,14 @@ public class Clientes {
 	
 	private String email;
 	
-	@UpdateTimestamp
 	private Date dataDeCriacao;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE) //um cliente pode ter mais de uma conta
-	private List<Contas> listaDeContas;
+	private List<RespostaContaDto> listaDeContas;
 	
-	@ManyToOne //Cada cliente está ligado a um único endereço
-	private Endereco endereco;
-
-	public Long getId() {
-		return id;
-	}
+	private RespostaEnderecoDto endereco;
 	
-	public void setId(Long id) {
-		this.id = id;
+	public RespostaClienteDto() {
+		
 	}
 
 	public String getNome() {
@@ -65,7 +42,7 @@ public class Clientes {
 	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
-	
+
 	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
@@ -81,7 +58,7 @@ public class Clientes {
 	public String getCnpj() {
 		return cnpj;
 	}
-	
+
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
@@ -106,15 +83,23 @@ public class Clientes {
 		return dataDeCriacao;
 	}
 
-	public List<Contas> getListaDeContas() {
+	public void setDataDeCriacao(Date dataDeCriacao) {
+		this.dataDeCriacao = dataDeCriacao;
+	}
+
+	public List<RespostaContaDto> getListaDeContas() {
 		return listaDeContas;
 	}
 
-	public Endereco getEndereco() {
+	public void setListaDeContas(List<RespostaContaDto> listaDeContas) {
+		this.listaDeContas = listaDeContas;
+	}
+
+	public RespostaEnderecoDto getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(RespostaEnderecoDto endereco) {
 		this.endereco = endereco;
 	}
 }
