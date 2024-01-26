@@ -4,12 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AtualizarEnderecoDto {
 	
-	private Long id;
-	
 	@NotBlank(message = "O nome da rua é obrigatório.")
 	private String rua;
 	
-	@NotBlank(message = "O número é obrigatório.")
 	private String numero;
 	
 	private String complemento;
@@ -28,14 +25,6 @@ public class AtualizarEnderecoDto {
 
 	public AtualizarEnderecoDto() {
 		
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getRua() {

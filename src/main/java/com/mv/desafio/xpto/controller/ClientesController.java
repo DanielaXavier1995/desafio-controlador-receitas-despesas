@@ -1,6 +1,7 @@
 package com.mv.desafio.xpto.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -23,10 +24,7 @@ import com.mv.desafio.xpto.dtos.CriarClienteDTO;
 import com.mv.desafio.xpto.dtos.RespostaClienteDto;
 import com.mv.desafio.xpto.dtos.RespostaContaDto;
 import com.mv.desafio.xpto.dtos.RespostaGenericaDto;
-import com.mv.desafio.xpto.dtos.RespostaClienteDto;
-import com.mv.desafio.xpto.dtos.RespostaMovimentacaoDto;
 import com.mv.desafio.xpto.model.Clientes;
-import com.mv.desafio.xpto.model.Contas;
 import com.mv.desafio.xpto.model.Endereco;
 import com.mv.desafio.xpto.repository.ClientesRepository;
 import com.mv.desafio.xpto.repository.EnderecoRepository;
@@ -136,33 +134,32 @@ public class ClientesController {
 
 	}
 	
-	@PutMapping
-	public ResponseEntity<RespostaGenericaDto> update(@Valid @RequestBody AtualizarClienteDto atualizarCliente) {
+	@PutMapping("/{id}")
+	public ResponseEntity<RespostaGenericaDto> update(@PathVariable Long id, @Valid @RequestBody AtualizarClienteDto atualizarCliente) {
 		
 		//Buscar Cliente
-		Optional<Clientes> cliente = clientesRepository.findById(atualizarCliente.getClienteId());
+		Optional<Clientes> cliente = clientesRepository.findById(id);
 		
 		//Validar Cliente
 		if(cliente.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-		
-		Clientes atualizarClientes = cliente.get();
-		
-		atualizarClientes.setId(cliente.get().getId());
-		atualizarClientes.setNome(atualizarCliente.getNome());
-		atualizarClientes.setTelefone(atualizarCliente.getTelefone());
-		atualizarClientes.setEmail(atualizarCliente.getEmail());
-		
-		//Buscar endereco
-		Optional<Endereco> endereco = enderecoRepository.findById(atualizarCliente.getEndereco().getId());
-								
-		//Validar endereco
-		if(endereco.isEmpty()) {
-			 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	    
+		//Valida se os campos não vem nulos e atualiza
+		if(Objects.nonNull(atualizarCliente.getNome())) {
+			cliente.get().setNome(atualizarCliente.getNome());
 		}
-				
-		atualizarClientes.setEndereco(endereco.get());
+		
+		if(Objects.nonNull(atualizarCliente.getTelefone())) {
+			cliente.get().setTelefone(atualizarCliente.getTelefone());
+		}
+		
+		if(Objects.nonNull(atualizarCliente.getEmail())) {
+			cliente.get().setEmail(atualizarCliente.getEmail());
+
+		}
+		
+		clientesRepository.save(cliente.get());
 		
 		return ResponseEntity.status(HttpStatus.OK)
     			.body(new RespostaGenericaDto("Cliente atualizado com sucesso!"));

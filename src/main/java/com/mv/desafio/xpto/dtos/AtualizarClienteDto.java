@@ -7,17 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 public class AtualizarClienteDto {
-    
-	private Long clienteId;
-	
-	@NotBlank(message = "O Nome é obrigatório.")
+
 	private String nome;
 	
-	@NotBlank(message = "O telefone é obrigatório.")
 	@Size(max = 25)
 	private String telefone;
 	
-	@NotBlank(message = "O email é obrigatório.")
 	@Email(message = "O Email deve ser um email válido.")
 	private String email;
 	
@@ -25,14 +20,6 @@ public class AtualizarClienteDto {
 
 	public AtualizarClienteDto() {
 		
-	}
-
-	public Long getClienteId() {
-		return clienteId;
-	}
-
-	public void setClienteId(Long clienteId) {
-		this.clienteId = clienteId;
 	}
 
 	public String getNome() {

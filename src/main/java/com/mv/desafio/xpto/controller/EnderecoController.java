@@ -1,6 +1,7 @@
 package com.mv.desafio.xpto.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -107,34 +108,37 @@ public class EnderecoController {
 		
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new RespostaGenericaDto("Endereco Criado com sucesso!"));
-	}
+	 }
 	
-	@PutMapping
-	public ResponseEntity<RespostaGenericaDto> update(@Valid @RequestBody AtualizarEnderecoDto atualizarEndereco) {
+	@PutMapping("/{id}")
+	public ResponseEntity<RespostaGenericaDto> update(@PathVariable Long id, @Valid @RequestBody AtualizarEnderecoDto atualizarEndereco) {
 		
 		//Buscar Endereco
-		Optional<Endereco> endereco = enderecoRepository.findById(atualizarEndereco.getId());
+		Optional<Endereco> endereco = enderecoRepository.findById(id);
 		
 		//Validar Endereco
 		if(endereco.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		}
-		
-		//Criar objeto Endereco:
-		Endereco criarEndereco = new Endereco();
 								
 		//Transformar AtualizarEnderecoDto na model Endereco:
-		criarEndereco.setId(atualizarEndereco.getId());
-		criarEndereco.setRua(atualizarEndereco.getRua());
-		criarEndereco.setNumero(atualizarEndereco.getNumero());
-		criarEndereco.setComplemento(atualizarEndereco.getComplemento());
-		criarEndereco.setBairro(atualizarEndereco.getBairro());
-		criarEndereco.setCidade(atualizarEndereco.getCidade());
-		criarEndereco.setUf(atualizarEndereco.getUf());
-		criarEndereco.setCep(atualizarEndereco.getCep());
+		endereco.get().setRua(atualizarEndereco.getRua());
+		
+		if(Objects.nonNull(atualizarEndereco.getNumero())) {
+			endereco.get().setNumero(atualizarEndereco.getNumero());
+		}
+		
+		if(Objects.nonNull(atualizarEndereco.getComplemento())) {
+			endereco.get().setComplemento(atualizarEndereco.getComplemento());
+		}
+		
+		endereco.get().setBairro(atualizarEndereco.getBairro());
+		endereco.get().setCidade(atualizarEndereco.getCidade());
+		endereco.get().setUf(atualizarEndereco.getUf());
+		endereco.get().setCep(atualizarEndereco.getCep());
 				
 		//Salvar Entidade Endereco atualizada:
-		Endereco enderecoAtualizado = enderecoRepository.save(criarEndereco);
+		enderecoRepository.save(endereco.get());
 				
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new RespostaGenericaDto("Endereco atualizado com sucesso!"));
