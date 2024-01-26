@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

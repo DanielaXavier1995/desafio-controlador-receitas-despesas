@@ -2,7 +2,7 @@ package com.mv.desafio.xpto.service;
 
 import org.springframework.stereotype.Service;
 
-import com.mv.desafio.xpto.dtos.CriarClienteDTO;
+import com.mv.desafio.xpto.dtos.requisicoesDTO.CriarClienteDTO;
 import com.mv.desafio.xpto.enums.TipoPessoa;
 
 @Service

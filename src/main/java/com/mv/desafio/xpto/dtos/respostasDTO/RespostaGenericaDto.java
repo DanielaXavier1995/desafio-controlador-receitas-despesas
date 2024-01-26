@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.respostasDTO;
 
 public class RespostaGenericaDto {
 

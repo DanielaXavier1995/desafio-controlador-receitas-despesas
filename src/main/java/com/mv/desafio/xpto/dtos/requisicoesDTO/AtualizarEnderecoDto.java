@@ -1,13 +1,12 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class CriarEnderecoDto {
+public class AtualizarEnderecoDto {
 
 	@NotBlank(message = "O nome da rua é obrigatório.")
 	private String rua;
 
-	@NotBlank(message = "O número é obrigatório.")
 	private String numero;
 
 	private String complemento;
@@ -24,7 +23,7 @@ public class CriarEnderecoDto {
 	@NotBlank(message = "O CEP é obrigatório.")
 	private String cep;
 
-	public CriarEnderecoDto() {
+	public AtualizarEnderecoDto() {
 
 	}
 

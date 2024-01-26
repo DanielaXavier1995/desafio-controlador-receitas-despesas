@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import com.mv.desafio.xpto.enums.TipoPessoa;
 import com.mv.desafio.xpto.model.Endereco;
