@@ -22,6 +22,7 @@ Esse projeto segue o padrão de arquitetura MVC.
 </div>
 
 ## Requisitos implementados até o momento: 📚
+
 📌 CRUD Clientes;
 
 📌 CRUD Enderecos;
@@ -29,6 +30,8 @@ Esse projeto segue o padrão de arquitetura MVC.
 📌 CRUD Contas -> Exceto método Update.
 
 📌 Relatório de saldo de todos os clientes;
+
+📌 Carga de dados;
 
 ## Tecnologias utilizadas: 🛠️
 <div align="middle">
