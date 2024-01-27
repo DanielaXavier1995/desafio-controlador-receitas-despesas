@@ -1,4 +1,4 @@
-package com.mv.desafio.xpto.dtos.requisicoesDto;
+package com.mv.desafio.xpto.dtos.requisicoesDTO;
 
 import com.mv.desafio.xpto.model.Endereco;
 

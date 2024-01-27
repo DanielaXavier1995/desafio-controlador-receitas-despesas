@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.mv.desafio.xpto.dtos.requisicoesDto.AtualizarEnderecoDto;
-import com.mv.desafio.xpto.dtos.requisicoesDto.CriarEnderecoDto;
-import com.mv.desafio.xpto.dtos.respostasDto.RespostaClienteDto;
-import com.mv.desafio.xpto.dtos.respostasDto.RespostaEnderecoDto;
-import com.mv.desafio.xpto.dtos.respostasDto.RespostaGenericaDto;
+import com.mv.desafio.xpto.dtos.requisicoesDTO.AtualizarEnderecoDto;
+import com.mv.desafio.xpto.dtos.requisicoesDTO.CriarEnderecoDto;
+import com.mv.desafio.xpto.dtos.respostasDTO.RespostaClienteDto;
+import com.mv.desafio.xpto.dtos.respostasDTO.RespostaEnderecoDto;
+import com.mv.desafio.xpto.dtos.respostasDTO.RespostaGenericaDto;
 import com.mv.desafio.xpto.model.Endereco;
 import com.mv.desafio.xpto.repository.EnderecoRepository;
 import com.mv.desafio.xpto.util.MapearCamposUtil;
